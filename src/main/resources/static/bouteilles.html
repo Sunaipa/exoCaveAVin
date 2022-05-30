@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/commun.css">
+    <script src="./js/commun.js"></script>
+    <script src="./js/bouteille.js"></script>
+
+</head>
+<body>
+
+<div class="include-Nav" name="listeDesBouteilles"></div>
+
+
+<div id ="tableList" class="container">
+    <h1 class="bleu">
+        Liste des bouteilles :
+    </h1>
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>
+                    <span onclick='triNomDown()' class="glyphicon glyphicon-arrow-down"></span>
+                    Nom
+                    <span onclick='triNomUp()' class="glyphicon glyphicon-arrow-up"></span>
+                </th>
+                <th>
+                    <span onclick='triMillesimeDown()' class="glyphicon glyphicon-arrow-down"></span>
+                    Millesime
+                    <span onclick='triMillesimeUp()' class="glyphicon glyphicon-arrow-up"></span>
+                </th>
+                <th>
+                    <span onclick='triPetillantDown()' class="glyphicon glyphicon-arrow-down"></span>
+                    Petillant
+                    <span onclick='triPetillantUp()' class="glyphicon glyphicon-arrow-up"></span>
+                </th>
+                <th>
+                    <span onclick='triQuantiteDown()' class="glyphicon glyphicon-arrow-down"></span>
+                    Quantité
+                    <span onclick='triQuantiteUp()' class="glyphicon glyphicon-arrow-up"></span>
+                </th>
+                <th>
+                    <span onclick='triCouleurDown()' class="glyphicon glyphicon-arrow-down"></span>
+                    Couleur
+                    <span onclick='triCouleurUp()' class="glyphicon glyphicon-arrow-up"></span>
+                </th>
+                <th>
+                    <span onclick='triRegionDown()' class="glyphicon glyphicon-arrow-down"></span>
+                    Region
+                    <span onclick='triRegionUp()' class="glyphicon glyphicon-arrow-up"></span>
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="tbodyliste">
+        </tbody>
+    </table>
+</div>
+
+<div id ="unite" class="container">
+    <h1 id="idUnit"></h1>
+    <button onclick='retourList()' type='button' class='glyphicon glyphicon-arrow-left'></button>
+        <div class="col-md-8">
+            Nom : <p id="nom"></p>
+            Millesime : <p id="millesime"></p>
+            Petillant : <p id="petillant"></p>
+            Quantite : <p id="quantite"></p>
+            Couleur : <p id="couleur"></p>
+            Region : <p id="region"></p>
+        </div>
+</div>
+
+<div class="include-Footer"></div>
+</body>
+</html>
