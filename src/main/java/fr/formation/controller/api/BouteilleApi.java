@@ -1,8 +1,12 @@
 package fr.formation.controller.api;
 
 import fr.formation.entity.Bouteille;
+import fr.formation.exception.EntityException;
 import fr.formation.service.BouteilleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,15 +23,37 @@ public class BouteilleApi {
     public List<Bouteille> getBouteilles(){
         return bServ.getAllBouteille();
     }
+
+    @GetMapping("/search/{term}")
+    public List<Bouteille> getSearchedBouteilles(@PathVariable("term") String term){ return bServ.getSearchedBouteilles(term);}
+
     @PostMapping("/add")
-    public void addBouteille(Bouteille b){
-        bServ.addBouteille(b);
+    public ResponseEntity<Void> addBouteille(@RequestBody Bouteille b) {
+        try {
+            bServ.addBouteille(b);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (EntityException e) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("message", e.getMessage());
+            return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
+        }
     }
-    @PutMapping("/modify")
-    public void modifyBouteille(Bouteille b){ bServ.modifyBouteille(b);}
-    @DeleteMapping("/delete")
-    public void deleteBouteille(Bouteille b){
-        bServ.deleteBouteille(b);
+    @PutMapping("/modify/{id}")
+    public ResponseEntity<Void> modifyBouteille(@PathVariable("id") int id, @RequestBody Bouteille b){
+        try {
+            b.setId(id);
+            bServ.modifyBouteille(b);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (EntityException e) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("message", e.getMessage());
+            return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteBouteille(@PathVariable("id") int id){
+        bServ.deleteBouteille(id);
     }
 
 

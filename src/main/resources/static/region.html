@@ -13,18 +13,81 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="css/commun.css">
     <script src="./js/commun.js"></script>
+    <script src="./js/region.js"></script>
 
 </head>
 <body>
 
 <div class="include-Nav" name="regions"></div>
 
+
+
+<div class="alert alert-danger" id="errorRegion"></div>
+
+
+
+<div id ="tableList" class="container">
+    <h1 class="bleu">
+        Liste des Region :
+    </h1>
+    <table class="table table-hover table-striped">
+        <thead>
+        <tr>
+            <th>
+                <span onclick='triIdDown()' class="glyphicon glyphicon-arrow-down"></span>
+                Id
+                <span onclick='triIdUp()' class="glyphicon glyphicon-arrow-up"></span>
+            </th>
+            <th>
+                <span onclick='triNomDown()' class="glyphicon glyphicon-arrow-down"></span>
+                Nom
+                <span onclick='triNomUp()' class="glyphicon glyphicon-arrow-up"></span>
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody id="tbodyliste">
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="container">
-    <div class="jumbotron">
-        <h1>
-            <small>Bonjour </small>
-        </h1>
-    </div>
+    <h1 class="bleu">
+        Add region :
+    </h1>
+    <div class="alert alert-danger hidden" id="errorBouteille"></div>
+    <form class="form-horizontal">
+        <input id="id" type = "hidden">
+
+        <div class="form-group">
+            <label for="nom" class="col-xs-2 control-label">Nom :</label>
+            <div class="col-xs-10">
+                <input id="nom"  name="nom"  placeholder="Nom de la bouteille"  class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group" >
+            <div class="col-xs-offset-2 col-xs-10">
+                <button id="add" type="button" class="btn btn-primary">Add</button>
+            </div>
+        </div>
+    </form>
 </div>
 
 <div class="include-Footer"></div>

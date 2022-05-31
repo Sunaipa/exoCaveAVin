@@ -1,8 +1,12 @@
 package fr.formation.controller.api;
 
 import fr.formation.entity.Region;
+import fr.formation.exception.EntityException;
 import fr.formation.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,16 +23,31 @@ public class RegionApi {
         return rServ.getAllRegion();
     }
     @PostMapping("/add")
-    public void addRegion(Region r){
-        rServ.addRegion(r);
+    public ResponseEntity<Void> addRegion(@RequestBody Region r){
+        try {
+            rServ.addRegion(r);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (EntityException e) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("message", e.getMessage());
+            return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
+        }
     }
-    @PutMapping("/modify")
-    public void modifyRegion(Region r){
-        rServ.modifyRegion(r);
+    @PutMapping("/modify/{id}")
+    public ResponseEntity<Void> modifyRegion(@PathVariable("id") int id, @RequestBody Region r){
+
+        try {
+            rServ.modifyRegion(r);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (EntityException e) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("message", e.getMessage());
+            return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
+        }
     }
-    @GetMapping("/delete")
-    public void deleteRegion(Region r){
-        rServ.deleteRegion(r);
+    @DeleteMapping("/delete/{id}")
+    public void deleteRegion(@PathVariable("id") int id){
+        rServ.deleteRegion(id);
     }
 
 

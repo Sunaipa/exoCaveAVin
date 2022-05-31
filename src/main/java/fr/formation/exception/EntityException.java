@@ -1,10 +1,10 @@
 package fr.formation.exception;
 
-public class BouteilleException extends Exception{
+public class EntityException extends Exception{
 
     private static final long serialVersionUID = 1L;
 
-    public BouteilleException(String message) {
+    public EntityException(String message) {
         super(message);
     }
 }

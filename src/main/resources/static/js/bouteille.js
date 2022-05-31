@@ -1,6 +1,11 @@
+var term= "";
+
 $(function() {
+	$("#errorBouteille").hide();
 	getBouteilles();
 	$("#unite").hide();
+	$("#effacer").on("click", effaceEtReload);
+	$("#search").on("click", search);
 });
 
 function getBouteilles() {
@@ -51,41 +56,39 @@ function detailBouteille(id){
 
 function modifBouteille(id){
 	window.location = "modifBouteille.html" + "?id=" + id ;
-
-	// var data = {
-	// 	nom : $('#name').val(),
-	// 	price:  $('#price').val(),
-	// 	quantity:  $('#quantity').val(),
-	// 	img: $('#img').val(),
-	// 	info: $('#info').val(),
-	// 	color: $('#color').val(),
-	// 	season :{
-	// 		id: $("#saison").val()
-	// 	},
-	// 	style: {
-	// 		id: $("#style").val()
-	// 	}
-	// }
-	//
-	// $.ajax({
-	// 	type: 'put',
-	// 	url: 'http://localhost:8080/56-projetfleur/rs/bouquet/' + $('#id').val(),
-	// 	data: JSON.stringify(data),
-	// 	contentType: "application/json;charset=utf-8",
-	// 	success: function() {
-	// 		window.location = "bouquet.html";
-	// 	}
-	// })
-	// 	.fail(function() {
-	// 		$("#errorBouquet").css("display", "block");
-	// 		$("#errorBouquet").html("Une erreur est survenue lors de la modification");
-	// 	})
 }
 
-function suppBouteille(id){
-	window.location = "suppBouteille.html";
+function suppBouteille(id) {
+	$.ajax({
+		type: 'delete',
+		url: 'http://localhost:8080/bouteilles/delete/' + id,
+		success: function () {
+			getBouteilles()
+		}
+	})
+		.fail(function (xhr) {
+			$("#errorBouteille").show();
+			$("#errorBouteille").html(xhr.getResponseHeader('message'));
+		})
 }
 
+
+function search(){
+	term = $("#filtre").val();
+	console.log(term);
+	$.get('http://localhost:8080/bouteilles/search/' + term, afficherBouteilles)
+
+}
+
+function effaceEtReload(){
+	if (term == $("#filtre").val() ){
+		$("#filtre").val("")
+		getBouteilles();
+	} else {
+		$("#filtre").val("");
+	}
+
+}
 
 function triNomUp(){
 	$.get("http://localhost:8080/bouteilles/triNomAntiAlpha", afficherBouteilles);

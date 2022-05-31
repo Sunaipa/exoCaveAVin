@@ -23,4 +23,7 @@ public interface BouteilleDao extends JpaRepository<Bouteille, Integer> {
 
     List<Bouteille> findByOrderByRegionNomAsc();
     List<Bouteille> findByOrderByRegionNomDesc();
+
+    List<Bouteille> findDistinctByNomContainingOrRegionNomContainingOrCouleurNomContaining(String term, String term2, String term3);
+
 }
